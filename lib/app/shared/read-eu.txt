@@ -1,0 +1,2 @@
+tudo que é compartilhado entre as telas fica aqui dentro
+ex: Modulos (autenticação por exemplo), Enums, Repositories... a pqp vai aqui dentro tb _|_
