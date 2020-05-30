@@ -6,9 +6,12 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: Modular.navigatorKey,
-      title: 'Projeto Treino',
+      title: 'EmagreceBughi',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
+        backgroundColor: Colors.deepPurpleAccent,
+        canvasColor: Colors.deepPurpleAccent,
       ),
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,

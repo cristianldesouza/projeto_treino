@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_treino/app/app_widget.dart';
 import 'package:projeto_treino/app/modules/home/home_module.dart';
+import 'package:projeto_treino/app/modules/workout/workout_module.dart';
 
 class AppModule extends MainModule {
   @override
@@ -12,7 +13,8 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-        Router(Modular.initialRoute, module: HomeModule()),
+        Router('/', module: HomeModule()),
+        Router('/workout', module: WorkoutModule()),
       ];
 
   @override

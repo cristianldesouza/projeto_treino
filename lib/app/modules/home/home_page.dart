@@ -4,7 +4,7 @@ import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "Home"}) : super(key: key);
+  const HomePage({Key key, this.title = "EmagreceBughi"}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -18,9 +18,77 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        elevation: 0,
       ),
       body: Column(
-        children: <Widget>[],
+        children: <Widget>[
+          SizedBox(
+            height: 120,
+          ),
+          Center(
+            child: Container(
+              width: 200,
+              height: 100,
+              child: RaisedButton(
+                elevation: 10,
+                splashColor: Colors.white,
+                color: Colors.white10,
+                child: Text(
+                  'Treino 1',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: () {
+                  controller.pushWorkout(1);
+                },
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: Container(
+              width: 200,
+              height: 100,
+              child: RaisedButton(
+                  splashColor: Colors.white,
+                  elevation: 10,
+                  color: Colors.white10,
+                  child: Text(
+                    'Treino 2',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    controller.pushWorkout(2);
+                  }),
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Center(
+            child: Container(
+              width: 200,
+              height: 50,
+              child: RaisedButton(
+                splashColor: Colors.white,
+                elevation: 10,
+                color: Colors.white10,
+                child: Text(
+                  'Histórico',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
