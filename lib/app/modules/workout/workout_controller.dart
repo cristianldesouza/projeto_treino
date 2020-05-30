@@ -39,6 +39,9 @@ abstract class _WorkoutControllerBase with Store {
   @observable
   ObservableStream<Position> position;
 
+  @observable
+  Position inicialPosition;
+
   @action
   getLocation() async {
     Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
@@ -47,6 +50,10 @@ abstract class _WorkoutControllerBase with Store {
     gpsStatus = await geolocator.isLocationServiceEnabled();
 
     if (!hasError) {
+      inicialPosition = await geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
       var locationOptions =
           LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
 
