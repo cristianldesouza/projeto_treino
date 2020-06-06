@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:projeto_treino/app/shared/widgets/error_page.dart';
+import 'package:projeto_treino/app/shared/widgets/splash_page.dart';
 import 'workout_controller.dart';
 
 class WorkoutPage extends StatefulWidget {
@@ -30,61 +32,60 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('${widget.title} ${widget.id}'),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: controller.backToHome,
-          )),
+        title: Text('${widget.title} ${widget.id}'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: controller.backToHome,
+        ),
+      ),
       body: Observer(
         builder: (_) {
-          if (!controller.hasError && controller.inicialPosition != null) {
-            final Set<Marker> _markers = {
-              Marker(
-                markerId: MarkerId("111"),
-                position: LatLng(
-                  controller.inicialPosition.latitude,
-                  controller.inicialPosition.longitude,
-                ),
-                icon: BitmapDescriptor.defaultMarker,
-              )
-            };
+          print(controller.currentPosition.data);
+          if (controller.currentPosition.data == null &&
+              controller.error == null) {
+            return SplashPage();
+          }
 
-            return GoogleMap(
-              markers: _markers,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(
-                  controller.inicialPosition.latitude,
-                  controller.inicialPosition.longitude,
-                ),
-                zoom: 19.0,
-              ),
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-            );
-          } else {
-            return SafeArea(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 220,
-                    ),
-                    Icon(
-                      Icons.warning,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      controller.errorText,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          if (controller.error != null) {
+            return ErrorPage(
+              erroText: controller.error,
             );
           }
+
+          var position = controller.currentPosition.data;
+
+          final Set<Marker> _markers = {
+            Marker(
+              markerId: MarkerId("currentPositon"),
+              position: LatLng(
+                position.latitude,
+                position.longitude,
+              ),
+              icon: BitmapDescriptor.defaultMarker,
+            )
+          };
+
+          return Column(
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height / 2.5,
+                width: MediaQuery.of(context).size.width,
+                child: GoogleMap(
+                  markers: _markers,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                      position.latitude,
+                      position.longitude,
+                    ),
+                    zoom: 19.0,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                ),
+              ),
+            ],
+          );
         },
       ),
     );
