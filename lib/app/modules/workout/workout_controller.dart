@@ -36,4 +36,9 @@ abstract class _WorkoutControllerBase with Store {
   backToHome() {
     Modular.to.pushReplacementNamed('/');
   }
+
+  @action
+  startWorkout() {
+    
+  }
 }

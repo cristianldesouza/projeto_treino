@@ -84,6 +84,22 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
                   },
                 ),
               ),
+              SizedBox(
+                height: 150,
+              ),
+              FlatButton(
+                color: Colors.white,
+                textColor: Colors.black,
+                disabledColor: Colors.grey,
+                disabledTextColor: Colors.black,
+                padding: EdgeInsets.all(8.0),
+                splashColor: Colors.blueAccent,
+                onPressed: controller.startWorkout,
+                child: Text(
+                  "Iniciar Treino",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              )
             ],
           );
         },
