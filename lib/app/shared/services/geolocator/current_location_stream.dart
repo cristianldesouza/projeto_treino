@@ -8,7 +8,9 @@ class CurrentLocationStream extends Disposable {
 
   Stream<Position> execute() {
     LocationOptions locationOptions = LocationOptions(
-        accuracy: LocationAccuracy.bestForNavigation, distanceFilter: 5);
+      accuracy: LocationAccuracy.bestForNavigation,
+      distanceFilter: 10,
+    );
 
     return geolocator.getPositionStream(locationOptions);
   }

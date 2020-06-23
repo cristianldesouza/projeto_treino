@@ -24,6 +24,6 @@ class CheckGpsService extends Disposable {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    this.dispose();
   }
 }

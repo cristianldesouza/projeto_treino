@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_timer/flutter_timer.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mobx/mobx.dart';
 import 'package:projeto_treino/app/shared/widgets/error_page.dart';
 import 'package:projeto_treino/app/shared/widgets/splash_page.dart';
 import 'workout_controller.dart';
@@ -20,14 +20,17 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
-  //use 'controller' variable to access controller
-
-  Completer<GoogleMapController> _controller = Completer();
-
   @override
   void initState() {
     super.initState();
+    final dispose = autorun((_) {
+      controller.getLocationStream();
+    });
+
+    dispose();
   }
+
+  Completer<GoogleMapController> _controller = Completer();
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +44,27 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
       ),
       body: Observer(
         builder: (_) {
-          print(controller.currentPosition.data);
-          if (controller.currentPosition.data == null &&
-              controller.error == null) {
+          if (controller.inicialPosition == null && controller.error == null) {
             return SplashPage();
           }
-
           if (controller.error != null) {
             return ErrorPage(
               erroText: controller.error,
             );
           }
 
-          var position = controller.currentPosition.data;
+          var position = controller.inicialPosition;
+          if (controller.currentPosition.data != null) {
+            position = controller.currentPosition.data;
+          }
+
+          var speedX = "0.0";
+
+          if (controller.currentSpeed != null &&
+              controller.currentSpeed.data != null &&
+              controller.currentSpeed.data.x > 0) {
+            speedX = controller.currentSpeed.data.x.toStringAsFixed(1);
+          }
 
           final Set<Marker> _markers = {
             Marker(
@@ -78,7 +89,7 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
                       position.latitude,
                       position.longitude,
                     ),
-                    zoom: 19.0,
+                    zoom: 18.0,
                   ),
                   onMapCreated: (GoogleMapController controller) {
                     _controller.complete(controller);
@@ -88,78 +99,48 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
               SizedBox(
                 height: 75,
               ),
-              Observer(
-                builder: (_) {
-                  print(controller.currentSpeed);
-
-                  return controller.mostraBotao
-                      ? FlatButton(
+              Column(
+                children: <Widget>[
+                  Text(
+                    'Velocidade sugerida: ${controller.speed} km/h',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Velocidade atual: ${speedX} km/h',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text(
+                        formatHHMMSS(controller.start).toString(),
+                        style: TextStyle(
                           color: Colors.white,
-                          textColor: Colors.black,
-                          disabledColor: Colors.grey,
-                          disabledTextColor: Colors.black,
-                          padding: EdgeInsets.all(8.0),
-                          splashColor: Colors.blueAccent,
+                          fontSize: 50,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Container(
+                        child: FloatingActionButton.extended(
+                          isExtended: true,
+                          label: Text(controller.buttonText,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              )),
                           onPressed: controller.startWorkout,
-                          child: Text(
-                            "Iniciar Treino",
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                        )
-                      : Column(children: <Widget>[
-                          Text(
-                            'Velocidade sugerida: ${controller.speed.toString()} km/h',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Velocidade atual: 44 km/h',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          TikTikTimer(
-                            initialDate: DateTime.now(),
-                            running: controller.running,
-                            height: 100,
-                            width: 100,
-                            backgroundColor: Colors.indigo,
-                            timerTextStyle:
-                                TextStyle(color: Colors.white, fontSize: 20),
-                            borderRadius: 100,
-                            isRaised: true,
-                            tracetime: (time) {
-                              //print(time.getCurrentMinute);
-                              switch (time.getCurrentMinute) {
-                                case 0:
-                                  controller.speed = 4;
-                                  break;
-                                case 5:
-                                  controller.speed = 6;
-                                  break;
-                                case 15:
-                                  controller.speed = 5;
-                                  break;
-                                case 20:
-                                  controller.speed = 10;
-                                  break;
-                                case 30:
-                                  controller.mostraBotao = true;
-                                  controller.running = false;
-                                  break;
-                                default:
-                              }
-
-                              // if (time.getCurrentSecond == 10) {
-                              //   controller.mostraBotao = true;
-                              // }
-                            },
-                          ),
-                        ]);
-                },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           );
@@ -167,4 +148,20 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
       ),
     );
   }
+}
+
+String formatHHMMSS(int seconds) {
+  int hours = (seconds / 3600).truncate();
+  seconds = (seconds % 3600).truncate();
+  int minutes = (seconds / 60).truncate();
+
+  String hoursStr = (hours).toString().padLeft(2, '0');
+  String minutesStr = (minutes).toString().padLeft(2, '0');
+  String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+
+  if (hours == 0) {
+    return "$minutesStr:$secondsStr";
+  }
+
+  return "$hoursStr:$minutesStr:$secondsStr";
 }
