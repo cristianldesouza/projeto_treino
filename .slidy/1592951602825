@@ -1,0 +1,8 @@
+lib/app/modules/history/history_module.dart
+lib/app/modules/history/history_page.dart
+test/app/modules/history/history_page_test.dart
+lib/app/modules/history/repositories/interfaces/history_repository_interface.dart
+lib/app/modules/history/history_controller.dart
+lib/app/modules/history/repositories/history_repository.dart
+test/app/modules/history/history_controller_test.dart
+test/app/modules/history/repositories/history_repository_test.dart

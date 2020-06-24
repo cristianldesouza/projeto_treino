@@ -84,7 +84,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     color: Colors.white,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  controller.pushHistory();
+                },
               ),
             ),
           ),

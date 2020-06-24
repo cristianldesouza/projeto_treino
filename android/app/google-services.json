@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "965709879578",
+    "firebase_url": "https://emagrece-bughi.firebaseio.com",
+    "project_id": "emagrece-bughi",
+    "storage_bucket": "emagrece-bughi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965709879578:android:8dd3aa245d195c980db4a3",
+        "android_client_info": {
+          "package_name": "br.projeto_treino.projeto_treino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965709879578-30alabs545ai5fo0nhvbgt80rso6cp9m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSzCIOrLvg1byv4z4iXWkvDMP-lXx7Yog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965709879578-30alabs545ai5fo0nhvbgt80rso6cp9m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

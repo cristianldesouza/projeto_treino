@@ -10,4 +10,9 @@ abstract class _HomeControllerBase with Store {
   pushWorkout(int workout) {
     Modular.to.pushReplacementNamed('/workout', arguments: workout);
   }
+
+  @action
+  pushHistory() {
+    Modular.to.pushReplacementNamed('/history');
+  }
 }
