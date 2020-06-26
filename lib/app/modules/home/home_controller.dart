@@ -7,8 +7,8 @@ class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
   @action
-  pushWorkout(int workout) {
-    Modular.to.pushReplacementNamed('/workout', arguments: workout);
+  pushCreateWorkout() {
+    Modular.to.pushReplacementNamed('/create-workout');
   }
 
   @action

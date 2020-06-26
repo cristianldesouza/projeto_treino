@@ -13,11 +13,11 @@ mixin _$HomeController on _HomeControllerBase, Store {
       ActionController(name: '_HomeControllerBase');
 
   @override
-  dynamic pushWorkout(int workout) {
+  dynamic pushCreateWorkout() {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.pushWorkout');
+        name: '_HomeControllerBase.pushCreateWorkout');
     try {
-      return super.pushWorkout(workout);
+      return super.pushCreateWorkout();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }

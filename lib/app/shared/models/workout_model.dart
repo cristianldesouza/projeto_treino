@@ -1,6 +1,6 @@
 class WorkoutModel {
   final String name;
-  final double time;
+  final int duration;
 
-  WorkoutModel({this.name, this.time});
+  WorkoutModel({this.name, this.duration});
 }

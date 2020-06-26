@@ -37,12 +37,40 @@ class _HistoryPageState extends ModularState<HistoryPage, HistoryController> {
       builder: (_) => controller.list != null
           ? PageView(
               children: <Widget>[
-                ListView.builder(
+                ListView.separated(
+                    padding: const EdgeInsets.only(top: 4.0),
                     itemCount: controller.list.length,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(
+                          height: 4,
+                        ),
                     itemBuilder: (BuildContext ctxt, int index) {
                       var history = controller.list[index];
-                      return ListTile(
-                        title: Text(history.workoutName),
+                      return Container(
+                        padding: const EdgeInsets.only(top: 4, bottom: 4),
+                        color: Colors.white,
+                        child: ListTile(
+                          leading: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                history.date,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          title: Text(history.workoutName),
+                          subtitle: Text(
+                              "Duração: ${history.duration} min \nVel: ${history.velocity} km/h"),
+                          trailing: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Text("Calorias: ${history.calories} kcal"),
+                            ],
+                          ),
+                        ),
                       );
                     })
               ],

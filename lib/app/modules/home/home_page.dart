@@ -34,41 +34,19 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 splashColor: Colors.white,
                 color: Colors.white10,
                 child: Text(
-                  'Treino 1',
+                  'Monte seu treino',
                   style: TextStyle(
                     color: Colors.white,
                   ),
                 ),
                 onPressed: () {
-                  controller.pushWorkout(1);
+                  controller.pushCreateWorkout();
                 },
               ),
             ),
           ),
           SizedBox(
             height: 20,
-          ),
-          Center(
-            child: Container(
-              width: 200,
-              height: 100,
-              child: RaisedButton(
-                  splashColor: Colors.white,
-                  elevation: 10,
-                  color: Colors.white10,
-                  child: Text(
-                    'Treino 2',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  onPressed: () {
-                    controller.pushWorkout(2);
-                  }),
-            ),
-          ),
-          SizedBox(
-            height: 30,
           ),
           Center(
             child: Container(
