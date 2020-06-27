@@ -16,7 +16,7 @@ abstract class _HomeControllerBase with Store {
   }
 
   @observable
-  User user;
+  UserModel user;
 
   checkUserOptions() async {
     user = await getUserService.execute();

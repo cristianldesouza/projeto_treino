@@ -8,11 +8,11 @@ class GetUserService extends Disposable {
 
   GetUserService({this.userRepository});
 
-  Future<User> execute() async {
+  Future<UserModel> execute() async {
     QuerySnapshot qs = await userRepository.getUserDocument();
 
     if (qs.documents.length > 0) {
-      return User.fromJson(qs.documents[0].data);
+      return UserModel.fromJson(qs.documents[0].data);
     }
 
     return null;

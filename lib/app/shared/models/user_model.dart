@@ -1,12 +1,12 @@
-class User {
+class UserModel {
   String nome;
   int idade;
   double altura;
   double peso;
 
-  User({this.nome, this.idade, this.altura, this.peso});
+  UserModel({this.nome, this.idade, this.altura, this.peso});
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     nome = json['nome'];
     idade = json['idade'];
     altura = json['altura'];

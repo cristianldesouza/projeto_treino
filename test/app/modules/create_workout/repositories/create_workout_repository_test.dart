@@ -2,12 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dio/dio.dart';
 
-import 'package:projeto_treino/app/modules/create_workout/repositories/interfaces/create_workout_repository_interface.dart';
-
 class MockClient extends Mock implements Dio {}
 
 void main() {
-  ICreateWorkoutRepository repository;
   // MockClient client;
 
   setUp(() {

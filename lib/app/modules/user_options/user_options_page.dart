@@ -43,10 +43,10 @@ class _UserOptionsPageState
                   height: 15,
                 ),
                 InputField(
-                  labelText: "Nome",
-                  inputTextColor: Colors.white,
-                  onChanged: controller.setName,
-                ),
+                    labelText: "Nome",
+                    inputTextColor: Colors.white,
+                    onChanged: controller.setName,
+                    errorText: controller.errorName),
                 SizedBox(
                   height: 10,
                 ),
@@ -54,6 +54,7 @@ class _UserOptionsPageState
                     labelText: "Idade",
                     inputTextColor: Colors.white,
                     keyboardType: TextInputType.number,
+                    errorText: controller.errorIdade,
                     onChanged: (idade) {
                       controller.setIdade(int.parse(idade));
                     }),
@@ -62,8 +63,13 @@ class _UserOptionsPageState
                 ),
                 InputField(
                   labelText: "Altura",
+                  suffixText: "cm",
                   inputTextColor: Colors.white,
                   keyboardType: TextInputType.number,
+                  errorText: controller.errorAltura,
+                  onChanged: (altura) {
+                    controller.setAltura(double.parse(altura));
+                  },
                 ),
                 SizedBox(
                   height: 10,
@@ -74,6 +80,7 @@ class _UserOptionsPageState
                   suffixText: "kg",
                   suffixStyle: TextStyle(color: Colors.white, fontSize: 20),
                   keyboardType: TextInputType.number,
+                  errorText: controller.errorPeso,
                   onChanged: (peso) {
                     controller.setPeso(double.parse(peso));
                   },

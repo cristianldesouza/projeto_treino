@@ -148,6 +148,14 @@ mixin _$UserOptionsController on _UserOptionsControllerBase, Store {
     });
   }
 
+  final _$saveUserAsyncAction =
+      AsyncAction('_UserOptionsControllerBase.saveUser');
+
+  @override
+  Future saveUser() {
+    return _$saveUserAsyncAction.run(() => super.saveUser());
+  }
+
   final _$_UserOptionsControllerBaseActionController =
       ActionController(name: '_UserOptionsControllerBase');
 
@@ -163,7 +171,7 @@ mixin _$UserOptionsController on _UserOptionsControllerBase, Store {
   }
 
   @override
-  dynamic setAltura(dynamic altura) {
+  dynamic setAltura(double altura) {
     final _$actionInfo = _$_UserOptionsControllerBaseActionController
         .startAction(name: '_UserOptionsControllerBase.setAltura');
     try {
@@ -190,17 +198,6 @@ mixin _$UserOptionsController on _UserOptionsControllerBase, Store {
         .startAction(name: '_UserOptionsControllerBase.setPeso');
     try {
       return super.setPeso(peso);
-    } finally {
-      _$_UserOptionsControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void saveUser() {
-    final _$actionInfo = _$_UserOptionsControllerBaseActionController
-        .startAction(name: '_UserOptionsControllerBase.saveUser');
-    try {
-      return super.saveUser();
     } finally {
       _$_UserOptionsControllerBaseActionController.endAction(_$actionInfo);
     }

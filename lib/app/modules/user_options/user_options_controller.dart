@@ -1,4 +1,6 @@
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:projeto_treino/app/modules/user_options/services/save_user_options_service.dart';
 import 'package:projeto_treino/app/shared/models/user_model.dart';
 
 part 'user_options_controller.g.dart';
@@ -7,6 +9,10 @@ class UserOptionsController = _UserOptionsControllerBase
     with _$UserOptionsController;
 
 abstract class _UserOptionsControllerBase with Store {
+  final SaveUserOptionsService saveUserOptionsService;
+
+  _UserOptionsControllerBase(this.saveUserOptionsService);
+
   @observable
   String nome = "";
 
@@ -28,9 +34,8 @@ abstract class _UserOptionsControllerBase with Store {
   }
 
   @action
-  setAltura(dynamic altura) {
-    var alturaDouble = altura.roundToDouble();
-    this.altura = alturaDouble;
+  setAltura(double altura) {
+    this.altura = altura;
   }
 
   @action
@@ -78,13 +83,17 @@ abstract class _UserOptionsControllerBase with Store {
       isValidName && isValidIdade && isValidAltura && isValidPeso;
 
   @action
-  void saveUser() {
+  saveUser() async {
     if (isValidForm) {
-      User user = new User(
+      UserModel user = new UserModel(
           nome: this.nome,
           idade: this.idade,
           peso: this.peso,
           altura: this.altura);
+
+      await this.saveUserOptionsService.execute(user);
+      this.error = false;
+      Modular.to.pushReplacementNamed('/');
     } else {
       this.error = true;
     }
