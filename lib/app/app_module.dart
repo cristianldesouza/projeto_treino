@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_treino/app/app_widget.dart';
 import 'package:projeto_treino/app/modules/create_workout/create_workout_module.dart';
 import 'package:projeto_treino/app/modules/home/home_module.dart';
+import 'package:projeto_treino/app/modules/user_options/user_options_module.dart';
 import 'package:projeto_treino/app/modules/workout/workout_module.dart';
 import 'package:projeto_treino/app/modules/history/history_module.dart';
 
@@ -16,6 +17,7 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router('/', module: HomeModule()),
+        Router('/user-options', module: UserOptionsModule()),
         Router('/workout', module: WorkoutModule()),
         Router('/history', module: HistoryModule()),
         Router('/create-workout', module: CreateWorkoutModule()),

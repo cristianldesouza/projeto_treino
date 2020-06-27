@@ -11,7 +11,7 @@ class SaveWorkoutService extends Disposable {
     Timestamp now = Timestamp.fromDate(DateTime.now());
     workoutModel.date = now;
 
-    await this.db.collection('history').add(workoutModel.toJson());
+    await this.db.collection('workout').add(workoutModel.toJson());
 
     return true;
   }
