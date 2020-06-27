@@ -146,6 +146,22 @@ mixin _$WorkoutController on _WorkoutControllerBase, Store {
     });
   }
 
+  final _$finishedWorkoutAtom =
+      Atom(name: '_WorkoutControllerBase.finishedWorkout');
+
+  @override
+  bool get finishedWorkout {
+    _$finishedWorkoutAtom.reportRead();
+    return super.finishedWorkout;
+  }
+
+  @override
+  set finishedWorkout(bool value) {
+    _$finishedWorkoutAtom.reportWrite(value, super.finishedWorkout, () {
+      super.finishedWorkout = value;
+    });
+  }
+
   final _$checkGpsAsyncAction = AsyncAction('_WorkoutControllerBase.checkGps');
 
   @override
@@ -168,6 +184,14 @@ mixin _$WorkoutController on _WorkoutControllerBase, Store {
   @override
   Future getLocationStream() {
     return _$getLocationStreamAsyncAction.run(() => super.getLocationStream());
+  }
+
+  final _$saveWorkoutAsyncAction =
+      AsyncAction('_WorkoutControllerBase.saveWorkout');
+
+  @override
+  Future<void> saveWorkout(WorkoutModel workoutModel) {
+    return _$saveWorkoutAsyncAction.run(() => super.saveWorkout(workoutModel));
   }
 
   final _$_WorkoutControllerBaseActionController =
@@ -217,7 +241,8 @@ buttonText: ${buttonText},
 currentPosition: ${currentPosition},
 inicialPosition: ${inicialPosition},
 currentSpeed: ${currentSpeed},
-start: ${start}
+start: ${start},
+finishedWorkout: ${finishedWorkout}
     ''';
   }
 }

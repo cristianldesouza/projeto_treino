@@ -75,17 +75,23 @@ class _CreateWorkoutPageState
                   SizedBox(
                     height: 20,
                   ),
-                  InputField(
-                    hint: "Nome",
-                    onChanged: controller.onChangeName,
+                  Observer(
+                    builder: (_) => InputField(
+                      hint: "Nome",
+                      onChanged: controller.onChangeName,
+                    ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  InputField(
-                    hint: "Duração",
-                    keyboardType: TextInputType.number,
-                    onChanged: controller.onChangeDuration,
+                  Observer(
+                    builder: (_) => InputField(
+                      hint: "Duração",
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        controller.time = int.parse(value);
+                      },
+                    ),
                   ),
                 ],
               ),

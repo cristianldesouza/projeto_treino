@@ -12,13 +12,13 @@ mixin _$HistoryController on _HistoryControllerBase, Store {
   final _$listAtom = Atom(name: '_HistoryControllerBase.list');
 
   @override
-  List<HistoryModel> get list {
+  List<WorkoutModel> get list {
     _$listAtom.reportRead();
     return super.list;
   }
 
   @override
-  set list(List<HistoryModel> value) {
+  set list(List<WorkoutModel> value) {
     _$listAtom.reportWrite(value, super.list, () {
       super.list = value;
     });

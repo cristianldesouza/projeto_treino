@@ -15,7 +15,7 @@ abstract class _CreateWorkoutControllerBase with Store {
   String title = "Treino";
 
   @observable
-  int duration;
+  int time;
 
   @action
   onChangeName(name) {
@@ -28,15 +28,10 @@ abstract class _CreateWorkoutControllerBase with Store {
   }
 
   @action
-  onChangeDuration(duration) {
-    this.duration = duration;
-  }
-
-  @action
   workout() {
     WorkoutModel workoutModel =
-        WorkoutModel(name: this.name, duration: this.duration);
-
+        WorkoutModel(name: this.name, duration: this.time);
+    print(this.time);
     Modular.to.pushReplacementNamed('/workout', arguments: workoutModel);
   }
 }

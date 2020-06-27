@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_timer/flutter_timer.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mobx/mobx.dart';
+import 'package:projeto_treino/app/modules/workout/services/save_workout_service.dart';
+import 'package:projeto_treino/app/shared/models/workout_model.dart';
 import 'package:projeto_treino/app/shared/services/acelerometer/user_acelerometer_service.dart';
 import 'package:projeto_treino/app/shared/services/geolocator/check_gps_service.dart';
 import 'package:projeto_treino/app/shared/services/geolocator/current_location.dart';
@@ -19,6 +20,7 @@ abstract class _WorkoutControllerBase with Store {
   final CurrentLocationStream currentLocationStream;
   final UserAcelerometerService userAcelerometerService;
   final CurrentLocation currentLocation;
+  final SaveWorkoutService saveWorkoutService;
 
   @observable
   bool mostraBotao = true;
@@ -29,12 +31,12 @@ abstract class _WorkoutControllerBase with Store {
   @observable
   int speed = 4;
 
-  _WorkoutControllerBase({
-    this.checkGpsService,
-    this.currentLocationStream,
-    this.userAcelerometerService,
-    this.currentLocation,
-  }) {
+  _WorkoutControllerBase(
+      {this.checkGpsService,
+      this.currentLocationStream,
+      this.userAcelerometerService,
+      this.currentLocation,
+      this.saveWorkoutService}) {
     checkGps();
     getInitialPosition();
   }
@@ -94,12 +96,24 @@ abstract class _WorkoutControllerBase with Store {
     Modular.to.pushReplacementNamed('/');
   }
 
+  @action
+  Future<void> saveWorkout(WorkoutModel workoutModel) async {
+    bool response = await this.saveWorkoutService.execute(workoutModel);
+
+    if (response) {
+      backToHome();
+    }
+  }
+
   @observable
-  int start = 1800;
+  int start;
 
   bool isRunning = false;
 
   Timer timer;
+
+  @observable
+  bool finishedWorkout = false;
 
   void startTimer() {
     // Start the periodic timer which prints something every 1 seconds
@@ -108,6 +122,8 @@ abstract class _WorkoutControllerBase with Store {
     timer = Timer.periodic(Duration(seconds: 1), (time) {
       if (start < 1) {
         timer.cancel();
+
+        this.finishedWorkout = true;
       } else {
         start = start - 1;
       }

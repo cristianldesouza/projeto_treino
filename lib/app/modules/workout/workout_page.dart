@@ -1,18 +1,18 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
+import 'package:projeto_treino/app/shared/models/workout_model.dart';
 import 'package:projeto_treino/app/shared/widgets/error_page.dart';
 import 'package:projeto_treino/app/shared/widgets/splash_page.dart';
 import 'workout_controller.dart';
 
 class WorkoutPage extends StatefulWidget {
   final String title;
-  final int id;
-  const WorkoutPage({Key key, this.title = "Treino", this.id})
+  final WorkoutModel workout;
+  const WorkoutPage({Key key, this.title = "Treino", this.workout})
       : super(key: key);
 
   @override
@@ -23,6 +23,8 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
   @override
   void initState() {
     super.initState();
+    controller.start = widget.workout.duration * 60;
+
     final dispose = autorun((_) {
       controller.getLocationStream();
     });
@@ -36,7 +38,7 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.title} ${widget.id}'),
+        title: Text('${widget.workout.name}'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: controller.backToHome,
@@ -97,51 +99,87 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
                 ),
               ),
               SizedBox(
-                height: 75,
+                height: 50,
               ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    'Velocidade sugerida: ${controller.speed} km/h',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Velocidade atual: ${speedX} km/h',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Text(
-                        formatHHMMSS(controller.start).toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 50,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Container(
-                        child: FloatingActionButton.extended(
-                          isExtended: true,
-                          label: Text(controller.buttonText,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.white,
-                              )),
-                          onPressed: controller.startWorkout,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              Observer(
+                  builder: (_) => !controller.finishedWorkout
+                      ? Column(
+                          children: <Widget>[
+                            Text(
+                              'Velocidade atual: ${speedX} km/h',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            Column(
+                              children: <Widget>[
+                                Text(
+                                  formatHHMMSS(controller.start).toString(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 50,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Container(
+                                  child: FloatingActionButton.extended(
+                                    isExtended: true,
+                                    label: Text(controller.buttonText,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.white,
+                                        )),
+                                    onPressed: controller.startWorkout,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.flag,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Treino finalizado!',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'Parabéns, você concluiu o treino',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              child: FloatingActionButton.extended(
+                                isExtended: true,
+                                label: Text("Salvar",
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.white,
+                                    )),
+                                onPressed: () =>
+                                    controller.saveWorkout(widget.workout),
+                              ),
+                            ),
+                          ],
+                        ))
             ],
           );
         },

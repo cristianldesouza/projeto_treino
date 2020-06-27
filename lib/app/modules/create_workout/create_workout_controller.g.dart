@@ -39,18 +39,18 @@ mixin _$CreateWorkoutController on _CreateWorkoutControllerBase, Store {
     });
   }
 
-  final _$durationAtom = Atom(name: '_CreateWorkoutControllerBase.duration');
+  final _$timeAtom = Atom(name: '_CreateWorkoutControllerBase.time');
 
   @override
-  int get duration {
-    _$durationAtom.reportRead();
-    return super.duration;
+  int get time {
+    _$timeAtom.reportRead();
+    return super.time;
   }
 
   @override
-  set duration(int value) {
-    _$durationAtom.reportWrite(value, super.duration, () {
-      super.duration = value;
+  set time(int value) {
+    _$timeAtom.reportWrite(value, super.time, () {
+      super.time = value;
     });
   }
 
@@ -63,17 +63,6 @@ mixin _$CreateWorkoutController on _CreateWorkoutControllerBase, Store {
         .startAction(name: '_CreateWorkoutControllerBase.onChangeName');
     try {
       return super.onChangeName(name);
-    } finally {
-      _$_CreateWorkoutControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onChangeDuration(dynamic duration) {
-    final _$actionInfo = _$_CreateWorkoutControllerBaseActionController
-        .startAction(name: '_CreateWorkoutControllerBase.onChangeDuration');
-    try {
-      return super.onChangeDuration(duration);
     } finally {
       _$_CreateWorkoutControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -95,7 +84,7 @@ mixin _$CreateWorkoutController on _CreateWorkoutControllerBase, Store {
     return '''
 name: ${name},
 title: ${title},
-duration: ${duration}
+time: ${time}
     ''';
   }
 }

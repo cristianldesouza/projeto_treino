@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:projeto_treino/app/modules/history/repositories/history_repository.dart';
-import 'package:projeto_treino/app/shared/models/history_model.dart';
+import 'package:projeto_treino/app/shared/models/workout_model.dart';
 
 part 'history_controller.g.dart';
 
@@ -14,7 +14,7 @@ abstract class _HistoryControllerBase with Store {
   }
 
   @observable
-  List<HistoryModel> list;
+  List<WorkoutModel> list;
 
   @action
   getAllHistories() async {
