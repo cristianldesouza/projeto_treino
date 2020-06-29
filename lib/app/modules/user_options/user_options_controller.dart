@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:projeto_treino/app/modules/user_options/services/save_user_options_service.dart';
 import 'package:projeto_treino/app/shared/models/user_model.dart';
+import 'package:projeto_treino/app/shared/services/firestore/get_user_service.dart';
 
 part 'user_options_controller.g.dart';
 
@@ -10,8 +11,13 @@ class UserOptionsController = _UserOptionsControllerBase
 
 abstract class _UserOptionsControllerBase with Store {
   final SaveUserOptionsService saveUserOptionsService;
-
-  _UserOptionsControllerBase(this.saveUserOptionsService);
+  final GetUserService getUserService;
+  _UserOptionsControllerBase({
+    this.saveUserOptionsService,
+    this.getUserService,
+  }) {
+    checkUser();
+  }
 
   @observable
   String nome = "";
@@ -28,8 +34,16 @@ abstract class _UserOptionsControllerBase with Store {
   @observable
   bool error = false;
 
+  @observable
+  UserModel user;
+
+  checkUser() async {
+    user = await getUserService.execute();
+  }
+
   @action
   setName(String nome) {
+    print('cu');
     this.nome = nome;
   }
 
@@ -86,10 +100,11 @@ abstract class _UserOptionsControllerBase with Store {
   saveUser() async {
     if (isValidForm) {
       UserModel user = new UserModel(
-          nome: this.nome,
-          idade: this.idade,
-          peso: this.peso,
-          altura: this.altura);
+        nome: this.nome,
+        idade: this.idade,
+        peso: this.peso,
+        altura: this.altura,
+      );
 
       await this.saveUserOptionsService.execute(user);
       this.error = false;

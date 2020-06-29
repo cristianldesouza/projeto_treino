@@ -16,6 +16,10 @@ class UserOptionsPage extends StatefulWidget {
 class _UserOptionsPageState
     extends ModularState<UserOptionsPage, UserOptionsController> {
   //use 'controller' variable to access controller
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,83 +31,86 @@ class _UserOptionsPageState
         padding: const EdgeInsets.all(12.0),
         child: SingleChildScrollView(
           child: Observer(
-            builder: (_) => Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  child: Image.asset(
-                    'assets/images/fat.png',
-                    height: 125,
-                    color: Colors.white,
+            builder: (_) {
+              return Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                InputField(
+                  Container(
+                    child: Image.asset(
+                      'assets/images/fat.png',
+                      height: 125,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  InputField(
                     labelText: "Nome",
                     inputTextColor: Colors.white,
                     onChanged: controller.setName,
-                    errorText: controller.errorName),
-                SizedBox(
-                  height: 10,
-                ),
-                InputField(
-                    labelText: "Idade",
+                    errorText: controller.errorName,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InputField(
+                      labelText: "Idade",
+                      inputTextColor: Colors.white,
+                      keyboardType: TextInputType.number,
+                      errorText: controller.errorIdade,
+                      onChanged: (idade) {
+                        controller.setIdade(int.parse(idade));
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InputField(
+                    labelText: "Altura",
+                    suffixText: "cm",
                     inputTextColor: Colors.white,
                     keyboardType: TextInputType.number,
-                    errorText: controller.errorIdade,
-                    onChanged: (idade) {
-                      controller.setIdade(int.parse(idade));
-                    }),
-                SizedBox(
-                  height: 10,
-                ),
-                InputField(
-                  labelText: "Altura",
-                  suffixText: "cm",
-                  inputTextColor: Colors.white,
-                  keyboardType: TextInputType.number,
-                  errorText: controller.errorAltura,
-                  onChanged: (altura) {
-                    controller.setAltura(double.parse(altura));
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                InputField(
-                  labelText: "Peso",
-                  inputTextColor: Colors.white,
-                  suffixText: "kg",
-                  suffixStyle: TextStyle(color: Colors.white, fontSize: 20),
-                  keyboardType: TextInputType.number,
-                  errorText: controller.errorPeso,
-                  onChanged: (peso) {
-                    controller.setPeso(double.parse(peso));
-                  },
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  width: 250,
-                  child: FloatingActionButton.extended(
-                    isExtended: true,
-                    label: Text(
-                      "Salvar",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.deepPurple,
-                      ),
-                    ),
-                    onPressed: controller.saveUser,
+                    errorText: controller.errorAltura,
+                    onChanged: (altura) {
+                      controller.setAltura(double.parse(altura));
+                    },
                   ),
-                ),
-              ],
-            ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InputField(
+                    labelText: "Peso",
+                    inputTextColor: Colors.white,
+                    suffixText: "kg",
+                    suffixStyle: TextStyle(color: Colors.white, fontSize: 20),
+                    keyboardType: TextInputType.number,
+                    errorText: controller.errorPeso,
+                    onChanged: (peso) {
+                      controller.setPeso(double.parse(peso));
+                    },
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    width: 250,
+                    child: FloatingActionButton.extended(
+                      isExtended: true,
+                      label: Text(
+                        "Salvar",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                      onPressed: controller.saveUser,
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

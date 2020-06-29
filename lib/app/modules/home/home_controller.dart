@@ -27,6 +27,11 @@ abstract class _HomeControllerBase with Store {
   }
 
   @action
+  pushSettings() {
+    Modular.to.pushNamed('/user-options');
+  }
+
+  @action
   pushCreateWorkout() {
     Modular.to.pushReplacementNamed('/create-workout');
   }

@@ -21,6 +21,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       appBar: AppBar(
         title: Text(widget.title),
         elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: controller.pushSettings,
+          )
+        ],
       ),
       body: Observer(
         builder: (_) => controller.user != null ? _widgetHome() : SplashPage(),
