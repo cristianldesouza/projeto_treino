@@ -21,6 +21,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       appBar: AppBar(
         title: Text(widget.title),
         elevation: 0,
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),
@@ -35,55 +36,57 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   }
 
   Widget _widgetHome() {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 120,
-        ),
-        Center(
-          child: Container(
-            width: 200,
-            height: 100,
-            child: RaisedButton(
-              elevation: 10,
-              splashColor: Colors.white,
-              color: Colors.white10,
-              child: Text(
-                'Monte seu treino',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              onPressed: () {
-                controller.pushCreateWorkout();
-              },
+    return SingleChildScrollView(
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 120,
             ),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Center(
-          child: Container(
-            width: 200,
-            height: 50,
-            child: RaisedButton(
-              splashColor: Colors.white,
-              elevation: 10,
-              color: Colors.white10,
-              child: Text(
-                'Histórico',
-                style: TextStyle(
-                  color: Colors.white,
+            Container(
+              width: MediaQuery.of(context).size.width / 1.8,
+              height: MediaQuery.of(context).size.width / 1.8,
+              child: RaisedButton(
+                elevation: 10,
+                splashColor: Colors.white,
+                color: Colors.white10,
+                child: Text(
+                  'Monte seu treino',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
+                onPressed: () {
+                  controller.pushCreateWorkout();
+                },
               ),
-              onPressed: () {
-                controller.pushHistory();
-              },
             ),
-          ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.8,
+              height: MediaQuery.of(context).size.width / 4,
+              child: RaisedButton(
+                splashColor: Colors.white,
+                elevation: 10,
+                color: Colors.white10,
+                child: Text(
+                  'Histórico',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: () {
+                  controller.pushHistory();
+                },
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

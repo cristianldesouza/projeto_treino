@@ -52,6 +52,14 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
           if (controller.error != null) {
             return ErrorPage(
               erroText: controller.error,
+              gpsAtivo: (val) {
+                if (val) {
+                  setState(() {
+                    controller.checkGps();
+                    controller.getInitialPosition();
+                  });
+                }
+              },
             );
           }
 
@@ -60,12 +68,18 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
             position = controller.currentPosition.data;
           }
 
-          var speedX = "0.0";
+          var speedX = "0";
 
           if (controller.currentSpeed != null &&
               controller.currentSpeed.data != null &&
               controller.currentSpeed.data.x > 0) {
-            speedX = controller.currentSpeed.data.x.toStringAsFixed(1);
+            var accInt = controller.currentSpeed.data.x;
+
+            var velocity = accInt * 3.6;
+
+            controller.setCalories(velocity.toInt());
+
+            speedX = velocity.toInt().toString();
           }
 
           final Set<Marker> _markers = {
@@ -106,7 +120,14 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
                       ? Column(
                           children: <Widget>[
                             Text(
-                              'Velocidade atual: ${speedX} km/h',
+                              'Velocidade atual: $speedX km/h',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            Text(
+                              'Calorias: ${controller.calories} kcal',
                               style: TextStyle(color: Colors.white),
                             ),
                             SizedBox(
@@ -130,7 +151,7 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
                                     label: Text(controller.buttonText,
                                         style: TextStyle(
                                           fontSize: 16.0,
-                                          color: Colors.white,
+                                          color: Colors.deepPurple,
                                         )),
                                     onPressed: controller.startWorkout,
                                   ),
@@ -172,7 +193,7 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
                                 label: Text("Salvar",
                                     style: TextStyle(
                                       fontSize: 16.0,
-                                      color: Colors.white,
+                                      color: Colors.deepPurple,
                                     )),
                                 onPressed: () =>
                                     controller.saveWorkout(widget.workout),

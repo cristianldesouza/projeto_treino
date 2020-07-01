@@ -5,6 +5,7 @@ import 'package:projeto_treino/app/modules/workout/workout_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_treino/app/modules/workout/workout_page.dart';
 import 'package:projeto_treino/app/shared/services/acelerometer/user_acelerometer_service.dart';
+import 'package:projeto_treino/app/shared/services/firestore/get_user_service.dart';
 import 'package:projeto_treino/app/shared/services/geolocator/check_gps_service.dart';
 import 'package:projeto_treino/app/shared/services/geolocator/current_location.dart';
 import 'package:projeto_treino/app/shared/services/geolocator/current_location_stream.dart';
@@ -21,6 +22,7 @@ class WorkoutModule extends ChildModule {
         ),
         Bind(
           (i) => WorkoutController(
+            getUserService: GetUserService(),
             checkGpsService: CheckGpsService(
               geolocator: i.get<Geolocator>(),
             ),

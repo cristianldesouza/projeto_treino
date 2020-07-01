@@ -11,9 +11,12 @@ class InputField extends StatelessWidget {
   final TextInputType keyboardType;
   final Color hintColor;
   final Color inputTextColor;
+  final Color colorBorder;
+
   final String labelText;
   final Icon prefixIcon;
   final String suffixText;
+  final String initialValue;
   final TextStyle suffixStyle;
   final bool error;
 
@@ -24,6 +27,7 @@ class InputField extends StatelessWidget {
     this.onChanged,
     this.onTap,
     this.errorText,
+    this.colorBorder = Colors.white,
     this.imgFolder,
     this.keyboardType = TextInputType.text,
     this.hintColor,
@@ -31,6 +35,7 @@ class InputField extends StatelessWidget {
     this.labelText,
     this.prefixIcon,
     this.suffixText,
+    this.initialValue,
     this.suffixStyle,
     this.error = false,
   });
@@ -52,7 +57,8 @@ class InputField extends StatelessWidget {
           labelStyle: TextStyle(color: Colors.white, fontSize: 20.0),
         ),
       ),
-      child: TextField(
+      child: TextFormField(
+        initialValue: initialValue,
         onChanged: onChanged,
         keyboardType: keyboardType,
         onTap: onTap,
@@ -68,12 +74,12 @@ class InputField extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.white,
+              color: colorBorder,
             ),
           ),
-          enabledBorder: const OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             // width: 0.0 produces a thin "hairline" border
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderSide: BorderSide(color: colorBorder, width: 1.0),
           ),
           errorBorder: OutlineInputBorder(
             // width: 0.0 produces a thin "hairline" border

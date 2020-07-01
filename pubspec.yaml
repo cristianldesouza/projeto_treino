@@ -29,7 +29,9 @@ dependencies:
   flutter_timer: ^0.0.6
   cloud_firestore: ^0.13.7
   intl: ^0.16.1
-  get: ^3.0.1
+  shared_preferences: ^0.5.7+3
+  audioplayers: ^0.15.1
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
 
@@ -51,6 +53,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/inicio.mpeg
+    - assets/inicio.mp3
+    - assets/audios/fim.mp3
+    - assets/audios/meio.mp3
+    - assets/audios/provocacao.mp3
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

@@ -33,10 +33,21 @@ class _CreateWorkoutPageState
         ),
       ),
       body: _body(),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: controller.workout,
-        label: Container(
-          child: Text("Ir para o treino"),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(
+          bottom: 60,
+        ),
+        child: FloatingActionButton.extended(
+          backgroundColor: Colors.deepPurple,
+          onPressed: controller.workout,
+          label: Container(
+            child: Text(
+              "Ir para o treino",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -54,11 +65,32 @@ class _CreateWorkoutPageState
               height: 120,
               color: Colors.deepPurple,
               margin: const EdgeInsets.only(bottom: 30),
-              child: Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset("assets/images/bughi.jpeg"),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset("assets/images/bughi.jpeg"),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset("assets/images/bughi.jpeg"),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset("assets/images/bughi.jpeg"),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset("assets/images/bughi.jpeg"),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset("assets/images/bughi.jpeg"),
+                  ),
+                ],
               ),
             ),
             Container(
@@ -77,6 +109,9 @@ class _CreateWorkoutPageState
                   ),
                   Observer(
                     builder: (_) => InputField(
+                      inputTextColor: Colors.deepPurple,
+                      hintColor: Colors.deepPurple,
+                      colorBorder: Colors.deepPurple,
                       hint: "Nome",
                       onChanged: controller.onChangeName,
                     ),
@@ -86,7 +121,11 @@ class _CreateWorkoutPageState
                   ),
                   Observer(
                     builder: (_) => InputField(
+                      inputTextColor: Colors.deepPurple,
+                      hintColor: Colors.deepPurple,
+                      colorBorder: Colors.deepPurple,
                       hint: "Duração",
+                      suffixText: "Minutos",
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         controller.time = int.parse(value);

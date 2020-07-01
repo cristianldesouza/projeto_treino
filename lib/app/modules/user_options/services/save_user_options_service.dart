@@ -1,15 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_treino/app/shared/models/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SaveUserOptionsService extends Disposable {
-  final Firestore db;
-
-  SaveUserOptionsService(this.db);
-
   Future<void> execute(UserModel userModel) async {
-    print(userModel);
-    await db.collection('user').add(userModel.toJson());
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.remove('user');
+
+    prefs.setString('user', jsonEncode(userModel.toJson()));
+
     return true;
   }
 

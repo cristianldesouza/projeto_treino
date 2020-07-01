@@ -24,11 +24,14 @@ abstract class _HomeControllerBase with Store {
     if (user == null) {
       Modular.to.pushReplacementNamed('/user-options');
     }
+
+    return user;
   }
 
   @action
-  pushSettings() {
-    Modular.to.pushNamed('/user-options');
+  pushSettings() async {
+    user = await checkUserOptions();
+    Modular.to.pushNamed('/user-options', arguments: user);
   }
 
   @action

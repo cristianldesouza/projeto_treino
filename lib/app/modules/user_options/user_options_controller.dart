@@ -2,7 +2,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:projeto_treino/app/modules/user_options/services/save_user_options_service.dart';
 import 'package:projeto_treino/app/shared/models/user_model.dart';
-import 'package:projeto_treino/app/shared/services/firestore/get_user_service.dart';
 
 part 'user_options_controller.g.dart';
 
@@ -11,13 +10,7 @@ class UserOptionsController = _UserOptionsControllerBase
 
 abstract class _UserOptionsControllerBase with Store {
   final SaveUserOptionsService saveUserOptionsService;
-  final GetUserService getUserService;
-  _UserOptionsControllerBase({
-    this.saveUserOptionsService,
-    this.getUserService,
-  }) {
-    checkUser();
-  }
+  _UserOptionsControllerBase({this.saveUserOptionsService});
 
   @observable
   String nome = "";
@@ -37,13 +30,8 @@ abstract class _UserOptionsControllerBase with Store {
   @observable
   UserModel user;
 
-  checkUser() async {
-    user = await getUserService.execute();
-  }
-
   @action
   setName(String nome) {
-    print('cu');
     this.nome = nome;
   }
 
@@ -65,7 +53,7 @@ abstract class _UserOptionsControllerBase with Store {
   }
 
   @computed
-  bool get isValidName => nome.length > 1;
+  bool get isValidName => nome.length > 0;
 
   @computed
   bool get isValidIdade => idade != null;

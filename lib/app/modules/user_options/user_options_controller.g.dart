@@ -148,6 +148,21 @@ mixin _$UserOptionsController on _UserOptionsControllerBase, Store {
     });
   }
 
+  final _$userAtom = Atom(name: '_UserOptionsControllerBase.user');
+
+  @override
+  UserModel get user {
+    _$userAtom.reportRead();
+    return super.user;
+  }
+
+  @override
+  set user(UserModel value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
+    });
+  }
+
   final _$saveUserAsyncAction =
       AsyncAction('_UserOptionsControllerBase.saveUser');
 
@@ -211,6 +226,7 @@ idade: ${idade},
 altura: ${altura},
 peso: ${peso},
 error: ${error},
+user: ${user},
 isValidName: ${isValidName},
 isValidIdade: ${isValidIdade},
 isValidAltura: ${isValidAltura},

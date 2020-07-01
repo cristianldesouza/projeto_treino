@@ -39,18 +39,18 @@ mixin _$WorkoutController on _WorkoutControllerBase, Store {
     });
   }
 
-  final _$speedAtom = Atom(name: '_WorkoutControllerBase.speed');
+  final _$userAtom = Atom(name: '_WorkoutControllerBase.user');
 
   @override
-  int get speed {
-    _$speedAtom.reportRead();
-    return super.speed;
+  UserModel get user {
+    _$userAtom.reportRead();
+    return super.user;
   }
 
   @override
-  set speed(int value) {
-    _$speedAtom.reportWrite(value, super.speed, () {
-      super.speed = value;
+  set user(UserModel value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
     });
   }
 
@@ -116,6 +116,21 @@ mixin _$WorkoutController on _WorkoutControllerBase, Store {
     });
   }
 
+  final _$caloriesAtom = Atom(name: '_WorkoutControllerBase.calories');
+
+  @override
+  int get calories {
+    _$caloriesAtom.reportRead();
+    return super.calories;
+  }
+
+  @override
+  set calories(int value) {
+    _$caloriesAtom.reportWrite(value, super.calories, () {
+      super.calories = value;
+    });
+  }
+
   final _$currentSpeedAtom = Atom(name: '_WorkoutControllerBase.currentSpeed');
 
   @override
@@ -146,6 +161,21 @@ mixin _$WorkoutController on _WorkoutControllerBase, Store {
     });
   }
 
+  final _$timeValueAtom = Atom(name: '_WorkoutControllerBase.timeValue');
+
+  @override
+  int get timeValue {
+    _$timeValueAtom.reportRead();
+    return super.timeValue;
+  }
+
+  @override
+  set timeValue(int value) {
+    _$timeValueAtom.reportWrite(value, super.timeValue, () {
+      super.timeValue = value;
+    });
+  }
+
   final _$finishedWorkoutAtom =
       Atom(name: '_WorkoutControllerBase.finishedWorkout');
 
@@ -160,6 +190,13 @@ mixin _$WorkoutController on _WorkoutControllerBase, Store {
     _$finishedWorkoutAtom.reportWrite(value, super.finishedWorkout, () {
       super.finishedWorkout = value;
     });
+  }
+
+  final _$getUserAsyncAction = AsyncAction('_WorkoutControllerBase.getUser');
+
+  @override
+  Future getUser() {
+    return _$getUserAsyncAction.run(() => super.getUser());
   }
 
   final _$checkGpsAsyncAction = AsyncAction('_WorkoutControllerBase.checkGps');
@@ -198,11 +235,11 @@ mixin _$WorkoutController on _WorkoutControllerBase, Store {
       ActionController(name: '_WorkoutControllerBase');
 
   @override
-  dynamic workout({dynamic seconds = int}) {
+  dynamic setCalories(int val) {
     final _$actionInfo = _$_WorkoutControllerBaseActionController.startAction(
-        name: '_WorkoutControllerBase.workout');
+        name: '_WorkoutControllerBase.setCalories');
     try {
-      return super.workout(seconds: seconds);
+      return super.setCalories(val);
     } finally {
       _$_WorkoutControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -235,13 +272,15 @@ mixin _$WorkoutController on _WorkoutControllerBase, Store {
     return '''
 mostraBotao: ${mostraBotao},
 running: ${running},
-speed: ${speed},
+user: ${user},
 error: ${error},
 buttonText: ${buttonText},
 currentPosition: ${currentPosition},
 inicialPosition: ${inicialPosition},
+calories: ${calories},
 currentSpeed: ${currentSpeed},
 start: ${start},
+timeValue: ${timeValue},
 finishedWorkout: ${finishedWorkout}
     ''';
   }

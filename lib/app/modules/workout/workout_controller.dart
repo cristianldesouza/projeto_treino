@@ -1,11 +1,14 @@
 import 'dart:async';
-
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mobx/mobx.dart';
 import 'package:projeto_treino/app/modules/workout/services/save_workout_service.dart';
+import 'package:projeto_treino/app/shared/models/user_model.dart';
 import 'package:projeto_treino/app/shared/models/workout_model.dart';
 import 'package:projeto_treino/app/shared/services/acelerometer/user_acelerometer_service.dart';
+import 'package:projeto_treino/app/shared/services/firestore/get_user_service.dart';
 import 'package:projeto_treino/app/shared/services/geolocator/check_gps_service.dart';
 import 'package:projeto_treino/app/shared/services/geolocator/current_location.dart';
 import 'package:projeto_treino/app/shared/services/geolocator/current_location_stream.dart';
@@ -21,6 +24,7 @@ abstract class _WorkoutControllerBase with Store {
   final UserAcelerometerService userAcelerometerService;
   final CurrentLocation currentLocation;
   final SaveWorkoutService saveWorkoutService;
+  final GetUserService getUserService;
 
   @observable
   bool mostraBotao = true;
@@ -29,16 +33,18 @@ abstract class _WorkoutControllerBase with Store {
   bool running = false;
 
   @observable
-  int speed = 4;
+  UserModel user;
 
   _WorkoutControllerBase(
       {this.checkGpsService,
       this.currentLocationStream,
       this.userAcelerometerService,
       this.currentLocation,
+      this.getUserService,
       this.saveWorkoutService}) {
     checkGps();
     getInitialPosition();
+    getUser();
   }
 
   @observable
@@ -54,25 +60,14 @@ abstract class _WorkoutControllerBase with Store {
   Position inicialPosition;
 
   @observable
+  int calories = 0;
+
+  @observable
   ObservableStream<UserAccelerometerEvent> currentSpeed;
 
   @action
-  workout({seconds: int}) {
-    switch (seconds) {
-      case 300:
-        speed = 6;
-        break;
-      case 900:
-        speed = 5;
-        break;
-      case 1200:
-        speed = 10;
-        break;
-      case 1800:
-        speed = 4;
-        break;
-      default:
-    }
+  getUser() async {
+    user = await getUserService.execute();
   }
 
   @action
@@ -113,6 +108,9 @@ abstract class _WorkoutControllerBase with Store {
   Timer timer;
 
   @observable
+  int timeValue = 0;
+
+  @observable
   bool finishedWorkout = false;
 
   void startTimer() {
@@ -125,6 +123,7 @@ abstract class _WorkoutControllerBase with Store {
 
         this.finishedWorkout = true;
       } else {
+        timeValue = timeValue + 1;
         start = start - 1;
       }
     });
@@ -137,14 +136,28 @@ abstract class _WorkoutControllerBase with Store {
   }
 
   @action
+  setCalories(int val) {
+    var kcal = user.peso.toInt() * 0.0175 * val / 1000;
+
+    calories += kcal.toInt();
+  }
+
+  @action
   startWorkout() {
     if (isRunning) {
       stopTimer();
     } else {
+      playLocal('inicio');
       startTimer();
     }
 
     currentSpeed = userAcelerometerService.execute().asObservable();
+  }
+
+  playLocal(nome) async {
+    AudioCache player = AudioCache();
+
+    // player.play('inicio.mp3"');
   }
 
   @action

@@ -1,18 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_treino/app/shared/models/user_model.dart';
-import 'package:projeto_treino/app/shared/repositories/user_repository/user_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GetUserService extends Disposable {
-  final UserRepository userRepository;
-
-  GetUserService({this.userRepository});
-
   Future<UserModel> execute() async {
-    QuerySnapshot qs = await userRepository.getUserDocument();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if (qs.documents.length > 0) {
-      return UserModel.fromJson(qs.documents[0].data);
+    String userData = prefs.getString('user');
+
+    if (userData != null) {
+      UserModel user = UserModel.fromJson(jsonDecode(prefs.getString('user')));
+
+      return user;
     }
 
     return null;

@@ -24,19 +24,16 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$_HomeControllerBaseActionController =
-      ActionController(name: '_HomeControllerBase');
+  final _$pushSettingsAsyncAction =
+      AsyncAction('_HomeControllerBase.pushSettings');
 
   @override
-  dynamic pushSettings() {
-    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.pushSettings');
-    try {
-      return super.pushSettings();
-    } finally {
-      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future pushSettings() {
+    return _$pushSettingsAsyncAction.run(() => super.pushSettings());
   }
+
+  final _$_HomeControllerBaseActionController =
+      ActionController(name: '_HomeControllerBase');
 
   @override
   dynamic pushCreateWorkout() {
