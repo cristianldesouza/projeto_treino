@@ -24,12 +24,12 @@ mixin _$HistoryController on _HistoryControllerBase, Store {
     });
   }
 
-  final _$getAllHistoriesAsyncAction =
-      AsyncAction('_HistoryControllerBase.getAllHistories');
+  final _$getAllWorkoutsAsyncAction =
+      AsyncAction('_HistoryControllerBase.getAllWorkouts');
 
   @override
-  Future getAllHistories() {
-    return _$getAllHistoriesAsyncAction.run(() => super.getAllHistories());
+  Future getAllWorkouts() {
+    return _$getAllWorkoutsAsyncAction.run(() => super.getAllWorkouts());
   }
 
   @override

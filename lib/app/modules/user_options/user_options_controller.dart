@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:projeto_treino/app/modules/user_options/services/save_user_options_service.dart';
 import 'package:projeto_treino/app/shared/models/user_model.dart';
+import 'package:projeto_treino/app/shared/services/shared_preferences/save_user_options_service.dart';
 
 part 'user_options_controller.g.dart';
 

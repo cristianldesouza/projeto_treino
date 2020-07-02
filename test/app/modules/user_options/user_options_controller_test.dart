@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:projeto_treino/app/modules/user_options/user_options_controller.dart';
 import 'package:projeto_treino/app/modules/user_options/user_options_module.dart';
 
 void main() {

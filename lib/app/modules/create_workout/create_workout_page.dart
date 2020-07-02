@@ -20,6 +20,7 @@ class _CreateWorkoutPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 1,
@@ -55,9 +56,8 @@ class _CreateWorkoutPageState
   }
 
   _body() {
-    return SafeArea(
-      child: Container(
-        color: Colors.white,
+    return SingleChildScrollView(
+      child: SafeArea(
         child: Column(
           children: <Widget>[
             Container(

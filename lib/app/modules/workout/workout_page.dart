@@ -24,6 +24,7 @@ class _WorkoutPageState extends ModularState<WorkoutPage, WorkoutController> {
   void initState() {
     super.initState();
     controller.start = widget.workout.duration * 60;
+    controller.tempoInicial = widget.workout.duration * 60;
 
     final dispose = autorun((_) {
       controller.getLocationStream();

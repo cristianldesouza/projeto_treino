@@ -6,7 +6,8 @@ import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "EmagreceBughi"}) : super(key: key);
+  const HomePage({Key key, this.title = "Bughi - No pain No gain"})
+      : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -43,11 +44,47 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: 120,
+              height: 30,
             ),
             Container(
-              width: MediaQuery.of(context).size.width / 1.8,
               height: MediaQuery.of(context).size.width / 1.8,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset("assets/images/bughi.jpeg"),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 50,
+              width: 300,
+              color: Colors.white,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(color: Colors.deepPurple, spreadRadius: 3),
+                  ],
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'OI ${controller.user.nome.toUpperCase()}, HORA DE TREINAR SEU VADIO!',
+                      style: TextStyle(color: Colors.deepPurple),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.2,
+              height: MediaQuery.of(context).size.width / 4,
               child: RaisedButton(
                 elevation: 10,
                 splashColor: Colors.white,

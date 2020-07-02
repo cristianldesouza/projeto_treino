@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:projeto_treino/app/shared/models/user_model.dart';
-import 'package:projeto_treino/app/shared/services/firestore/get_user_service.dart';
+import 'package:projeto_treino/app/shared/services/shared_preferences/get_user_service.dart';
 
 part 'home_controller.g.dart';
 
@@ -31,7 +30,7 @@ abstract class _HomeControllerBase with Store {
   @action
   pushSettings() async {
     user = await checkUserOptions();
-    Modular.to.pushNamed('/user-options', arguments: user);
+    Modular.to.pushReplacementNamed('/user-options', arguments: user);
   }
 
   @action

@@ -192,6 +192,21 @@ mixin _$WorkoutController on _WorkoutControllerBase, Store {
     });
   }
 
+  final _$tempoInicialAtom = Atom(name: '_WorkoutControllerBase.tempoInicial');
+
+  @override
+  int get tempoInicial {
+    _$tempoInicialAtom.reportRead();
+    return super.tempoInicial;
+  }
+
+  @override
+  set tempoInicial(int value) {
+    _$tempoInicialAtom.reportWrite(value, super.tempoInicial, () {
+      super.tempoInicial = value;
+    });
+  }
+
   final _$getUserAsyncAction = AsyncAction('_WorkoutControllerBase.getUser');
 
   @override
@@ -281,7 +296,8 @@ calories: ${calories},
 currentSpeed: ${currentSpeed},
 start: ${start},
 timeValue: ${timeValue},
-finishedWorkout: ${finishedWorkout}
+finishedWorkout: ${finishedWorkout},
+tempoInicial: ${tempoInicial}
     ''';
   }
 }

@@ -1,16 +1,14 @@
-import 'repositories/history_repository.dart';
-import 'repositories/interfaces/history_repository_interface.dart';
+import 'package:projeto_treino/app/shared/services/shared_preferences/get_workout_service.dart';
+
 import 'history_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'history_page.dart';
 
 class HistoryModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind<IHistoryRepository>((i) => HistoryRepository(Firestore.instance)),
         Bind(
-          (i) => HistoryController(i.get()),
+          (i) => HistoryController(getWorkoutService: GetWorkoutService()),
         ),
       ];
 

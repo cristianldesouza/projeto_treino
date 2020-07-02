@@ -1,7 +1,7 @@
 import 'package:projeto_treino/app/modules/home/home_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_treino/app/modules/home/home_page.dart';
-import 'package:projeto_treino/app/shared/services/firestore/get_user_service.dart';
+import 'package:projeto_treino/app/shared/services/shared_preferences/get_user_service.dart';
 
 class HomeModule extends ChildModule {
   @override

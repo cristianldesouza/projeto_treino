@@ -4,15 +4,19 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_treino/app/shared/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SaveUserOptionsService extends Disposable {
-  Future<void> execute(UserModel userModel) async {
+class GetUserService extends Disposable {
+  Future<UserModel> execute() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    prefs.remove('user');
+    String userData = prefs.getString('user');
 
-    prefs.setString('user', jsonEncode(userModel.toJson()));
+    if (userData != null) {
+      UserModel user = UserModel.fromJson(jsonDecode(userData));
 
-    return true;
+      return user;
+    }
+
+    return null;
   }
 
   @override

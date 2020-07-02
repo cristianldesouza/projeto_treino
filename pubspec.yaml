@@ -53,8 +53,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/inicio.mpeg
-    - assets/inicio.mp3
+    - assets/audios/inicio.mp3
     - assets/audios/fim.mp3
     - assets/audios/meio.mp3
     - assets/audios/provocacao.mp3
